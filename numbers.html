@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Pause til 10:36</h1>
+    <div id="app"></div>
+    <script>
+        // model
+        let secretNumber;
+        let userNumber;
+
+        // view
+        updateView();
+        function updateView() {
+            let feedback = '';
+            if (userNumber == secretNumber) feedback = 'Riktig!';
+            else if (userNumber < secretNumber) feedback = 'For lavt';
+            else if (userNumber > secretNumber) feedback = 'For høyt';
+
+            document.getElementById('app').innerHTML = /*HTML*/`
+                <h4>Tipp et tall</h4>
+                <div>${feedback}</div>
+                <input 
+                    type="number" min="1" max="10" step="1"
+                    oninput="userNumber=this.valueAsNumber"
+                    value="${userNumber || ''}"
+                    />
+                <button onclick="updateView()">Gjett</button>
+            `;
+
+        }
+
+        // controller        
+        init();
+        function init() {
+            secretNumber = createRandomNumber(1, 10);
+            updateView();
+        }
+
+        function createRandomNumber(min, max) {
+            let diff = max - min + 1;
+            return min + Math.floor(Math.random() * diff);
+        }
+
+    </script>
+</body>
+
+</html>
