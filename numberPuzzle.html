@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #app {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+        }
+
+        #app>button {
+            font-size: 400%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pause til 11:15</h1>
+    <div id="app"></div>
+    <script>
+        // model
+        let numbers = '321654 789';
+        // view
+        updateView();
+        function updateView() {
+            document.getElementById('app').innerHTML =
+                numberIndexToDiv(0)
+                + numberIndexToDiv(1)
+                + numberIndexToDiv(2)
+                + numberIndexToDiv(3)
+                + numberIndexToDiv(4)
+                + numberIndexToDiv(5)
+                + numberIndexToDiv(6)
+                + numberIndexToDiv(7)
+                + numberIndexToDiv(8)
+                ;
+        }
+
+        function numberIndexToDiv(index) {
+            return `<button onclick="swapNumber(${index})">${numbers.charAt(index)}</button>`;
+        }
+
+        // controller
+        function swapNumber(index) {
+            // let value = numbers.charAt(index);
+            // numbers = numbers.replace(value, 'x');
+            // numbers = numbers.replace(' ', value);
+            // numbers = numbers.replace('x', ' ');
+
+            /*
+                 0123456789
+                '321654 789'
+                eks: bytte 1 med blank
+            */
+            let blankIndex = numbers.indexOf(' ');
+            let index1 = Math.min(index, blankIndex);
+            let index2 = Math.max(index, blankIndex);
+            let value1 = numbers.charAt(index1);
+            let value2 = numbers.charAt(index2);
+            let part1 = numbers.substring(0, index1);
+            let part2 = numbers.substring(index1 + 1, index2);
+            let part3 = numbers.substring(index2 + 1);
+            numbers = part1 + value2 + part2 + value1 + part3;
+            updateView();
+        }
+    </script>
+</body>
+
+</html>
